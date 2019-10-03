@@ -8,6 +8,5 @@ class Player:
             else:
                 print(x, end='')
 
-
-def set_name(self):
+    def set_name(self):
         self.name = input("Enter your name")
