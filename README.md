@@ -23,4 +23,4 @@ Le jeu doit comporter 2 modes :
     - Normal : La solution est cachée.
     - Debug  : La solution est affichée.
 
-Le jeu ne comportera pas d'interface graphique,
+Le jeu ne comportera pas d'interface graphique, par conséquent un affichage console agréable sera priorisé. 
