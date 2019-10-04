@@ -14,12 +14,6 @@ class Game:
         else:
             self.var_os = 'cls'
 
-    def set_color(self, n):
-
-        if n == 2:
-            self.color.append('pink')
-            self.color.append('grey')
-
     def set_solution(self):
 
         while self.solution.count() <= 4:
@@ -66,6 +60,10 @@ class Game:
 
         self.difficulty = int(difficulty_choice)
 
+        if self.difficulty == 2:
+            self.color.append('pink')
+            self.color.append('cyan')
+
     def game_mod(self):
         res = False
 
@@ -110,4 +108,3 @@ class Game:
         print("|{:8}{:14}{:>21}{:8}|".format("", "Mod : ", mod_choice, ""))
         print(" ---------------------------------------------------")
         input("Press Enter to continue...")
-

@@ -5,18 +5,20 @@ class Player:
 
     def set_name(self):
         res = True
-        name_prop = ""
 
         while res:
             res = False
+            name_prop = input(" Player {} Enter your name : ".format(self.player_number))
 
-            while len(name_prop) < 1:
-                name_prop = input(" Player {} Enter your name : ".format(self.player_number))
+            if len(name_prop) > 0:
 
-            for x in name_prop:
-                if not (ord("A") <= ord(x) <= ord("Z")) | (ord("a") <= ord(x) <= ord("z")):
-                    print(" Enter a name within number or special characters.")
-                    res = True
-                    break
+                for x in name_prop:
+                    if not (ord("A") <= ord(x) <= ord("Z")) | (ord("a") <= ord(x) <= ord("z")):
+                        print(" Enter a name within number or special characters.")
+                        res = True
+                        break
+            else:
+                print(" Enter a name within number or special characters.")
+                res = True
 
         self.name = name_prop
