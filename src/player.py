@@ -22,3 +22,28 @@ class Player:
                 res = True
 
         self.name = name_prop
+
+    def select_colors(self, color_list):
+        color_choice = []
+
+        if len(color_list) == 8:
+            cases = 4
+        else:
+            cases = 6
+
+        while len(color_choice) < cases:
+
+            while True:
+                select = input(" Choose your color : ")
+
+                if len(select) == 1:
+                    if int(ord("0")) <= int(ord(select)) <= int(ord(str(len(color_list) - 1))):
+                        break
+
+                print(" Enter the number before color.")
+
+            color_choice.append(select)
+
+        input("Press enter to continue...")
+
+        return color_choice
