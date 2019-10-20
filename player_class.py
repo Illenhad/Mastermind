@@ -3,8 +3,12 @@ class Player:
         self.name = "Player"
         self.player_number = number
 
+    """
+    Set name of player
+    """
     def set_name(self):
         res = True
+        name_prop = ""
 
         while res:
             res = False
@@ -23,6 +27,9 @@ class Player:
 
         self.name = name_prop
 
+    """
+    Player choose color from a list
+    """
     def select_colors(self, color_list):
         color_choice = []
         x = 1

@@ -3,6 +3,7 @@ from game_class import Game
 
 
 def main():
+
     game_board = Game()
     game_board.game_title()
 
@@ -15,7 +16,9 @@ def main():
     game_board.set_players(player_one,
                            player_two)
 
-    game_board.game_difficulty()
+    game_board.game_rules()
+
+    game_board.set_difficulty()
     game_board.set_mod()
 
     game_board.game_title_resume(game_board.players[0].name,
@@ -23,6 +26,7 @@ def main():
 
     while game_board.game_continue:
 
+        game_board.game_warning()
         game_board.view_color()
         game_board.solution = game_board.players[0].select_colors(game_board.color_list)
 

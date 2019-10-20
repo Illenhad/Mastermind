@@ -1,4 +1,8 @@
 from os import name as os_name, system as os_system
+# import sqlite3
+#
+# CreateDataBase = sqlite3.connect('HighScore.db')
+# QueryCurs = CreateDataBase.cursor()
 
 
 class Game:
@@ -45,12 +49,34 @@ class Game:
         self.players.append(p1)
         self.players.append(p2)
 
+    def game_rules(self):
+
+        os_system(self.var_os)
+        print("")
+        print(" ╔" + "═" * 51 + "╗")
+        print(" ║{:^51}║".format("Game rules"))
+        print(" ║{:51}║".format(""))
+        print(" ║{:51}║".format(" Player one choose a combination of color"))
+        print(" ║{:51}║".format(" Player Two must find out in less than 10 moves"))
+        print(" ║{:51}║".format(""))
+        print(" ║{:51}║".format(" Two difficulty are available."))
+        print(" ║{:51}║".format(" In Normal, you can choose from 8 colors, "))
+        print(" ║{:51}║".format(" and the combination contains 4 colors"))
+        print(" ║{:51}║".format(" In Difficult, you can choose from 10 colors, "))
+        print(" ║{:51}║".format(" and the combination contains 6 colors"))
+        print(" ║{:51}║".format(""))
+        print(" ║{:51}║".format(" Two mod are available."))
+        print(" ║{:51}║".format(" In Normal mod, the solution is hidden"))
+        print(" ║{:51}║".format(" In Debug mod, the solution is visible"))
+        print(" ╚" + "═" * 51 + "╝")
+
+        input("  Press Enter to continue...")
+
     """
     Set self.difficulty
     Difficult : add two colors into color list
     """
-
-    def game_difficulty(self):
+    def set_difficulty(self):
         res = ""
 
         os_system(self.var_os)
@@ -88,7 +114,6 @@ class Game:
     Normal : Solution is hidden
     Debug : Solution is visible 
     """
-
     def set_mod(self):
         res = ""
 
@@ -115,9 +140,8 @@ class Game:
         self.mod = int(mod_choice)
 
     """
-    Print resume before lunch game
+    Display resume before lunch game
     """
-
     def game_title_resume(self, p1, p2):
         os_system(self.var_os)
 
@@ -141,6 +165,9 @@ class Game:
         print(" ╚" + "═" * 51 + "╝")
         input("  Press Enter to continue...")
 
+    """
+    Display colors available
+    """
     def view_color(self):
         x = 0
 
@@ -156,6 +183,25 @@ class Game:
 
         print(" ╚" + "═" * 16 + "╝")
 
+    """
+    Display warning before player choose solution
+    """
+    def game_warning(self):
+
+        os_system(self.var_os)
+        print("")
+        print(" ╔" + "═" * 51 + "╗")
+        print(" ║{:^51}║".format("WARNING"))
+        print(" ║{:51}║".format(""))
+        print(" ║{:51}║".format(self.players[0].name + " you will choose the solution"))
+        print(" ║{:51}║".format(" Press Enter when you are sure not to be seen !"))
+        print(" ╚" + "═" * 51 + "╝")
+
+        input("  Press Enter to continue...")
+
+    """
+    Display board game
+    """
     def game_board_view(self):
         cpt = 0
         os_system(self.var_os)
@@ -304,6 +350,9 @@ class Game:
 
         print(foot)
 
+    """
+    Verify color choice compared to solution
+    """
     def verify_choice(self):
         color_choice = self.color_choice_save[-1]
         solution_copy = self.solution[:]
@@ -327,6 +376,9 @@ class Game:
 
         self.color_result_save.append(result_choice)
 
+    """
+    Verify if game if player won, loose or if game continue
+    """
     def verify_end_game(self):
 
         if self.game_turn >= 10:
@@ -337,6 +389,9 @@ class Game:
             else:
                 self.game_turn += 1
 
+    """
+    Display result of the game
+    """
     def result_game(self):
         os_system(self.var_os)
 
@@ -378,6 +433,9 @@ class Game:
 
         print(" ╚" + "═" * 51 + "╝")
 
+    """
+    Set game_continue to specify if we start new game
+    """
     def set_another_game(self):
         rst = ''
 
@@ -398,3 +456,14 @@ class Game:
 
             else:
                 rst = str(input("  Another game ? y / n : ")).lower().strip()
+
+    # def create_table(self):
+    #     QueryCurs.execute('''CREATE TABLE Highscore
+    #     (id INTEGER PRIMARY KEY, Name TEXT,Score INTEGER)''')
+    #
+    # def add_entry(self, name, score):
+    #     QueryCurs.execute('''INSERT INTO Clients (Name,Score)
+    #     VALUES (?,?,?,?,?)''', (name, score))
+    #
+    # def view_high_score(self):
+    #     QueryCurs.execute("SELECT name, ' | ', score FROM Clients ORDER BY score DESC FETCH FIRST 10 ROW ONLY")
