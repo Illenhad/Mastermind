@@ -8,17 +8,17 @@ class Player:
 
         while res:
             res = False
-            name_prop = input(" Player {} Enter your name : ".format(self.player_number))
+            name_prop = input("  Player {} Enter your name : ".format(self.player_number))
 
             if len(name_prop) > 0:
 
                 for x in name_prop:
                     if not (ord("A") <= ord(x) <= ord("Z")) | (ord("a") <= ord(x) <= ord("z")):
-                        print(" Enter a name within number or special characters.")
+                        print("  Enter a name within number or special characters.\n")
                         res = True
                         break
             else:
-                print(" Enter a name within number or special characters.")
+                print("  Enter a name within number or special characters.\n")
                 res = True
 
         self.name = name_prop
@@ -35,18 +35,18 @@ class Player:
         while len(color_choice) < cases:
 
             while True:
-                select = input(" {} choose color {}: ".format(self.name,
-                                                              x))
+                select = input("  {}, choose color {}: ".format(self.name,
+                                                                x))
 
                 if len(select) == 1:
                     if int(ord("0")) <= int(ord(select)) <= int(ord(str(len(color_list) - 1))):
                         break
 
-                print(" Enter the number before color.")
+                print("  Enter the number before color.\n")
 
             color_choice.append(select)
             x += 1
 
-        input("Press enter to continue...")
+        input("\n  Press enter to continue...")
 
         return color_choice
