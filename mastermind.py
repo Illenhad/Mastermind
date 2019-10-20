@@ -21,18 +21,22 @@ def main():
     game_board.game_title_resume(game_board.players[0].name,
                                  game_board.players[1].name)
 
-    game_board.view_color()
-    game_board.solution = game_board.players[0].select_colors(game_board.color_list)
+    while game_board.game_continue:
 
-    while True:
-        game_board.game_board_view()
-        game_board.color_choice_save.append(
-            game_board.players[1].select_colors(game_board.color_list)
-        )
-        game_board.verify_choice()
-        game_board.verify_end_game()
+        game_board.view_color()
+        game_board.solution = game_board.players[0].select_colors(game_board.color_list)
 
-    input("Press Enter to continue...")
+        while game_board.game_continue:
+
+            game_board.game_board_view()
+            game_board.color_choice_save.append(
+                game_board.players[1].select_colors(game_board.color_list)
+            )
+            game_board.verify_choice()
+            game_board.verify_end_game()
+
+        game_board.result_game()
+        game_board.set_another_game()
 
 
 if __name__ == '__main__':

@@ -139,7 +139,7 @@ class Game:
                                                  "Mod : ",
                                                  self.mod_list[self.mod]))
         print("╚" + "═" * 51 + "╝")
-        input("Press Enter to continue...")
+        input(" Press Enter to continue...")
 
     def view_color(self):
         x = 0
@@ -281,14 +281,14 @@ class Game:
 
             if self.mod == 2:
                 print(
-                    "║{:^7}|{:^7}|{:^7}|{:^7}║"
+                    "║{:^7}|{:^7}|{:^7}|{:^7}|{:^7}|{:^7}║"
                     "║{:^15}║"
-                    "║{:^16}║".format(self.color_list[self.solution[0]].upper(),
-                                      self.color_list[self.solution[1]].upper(),
-                                      self.color_list[self.solution[2]].upper(),
-                                      self.color_list[self.solution[3]].upper(),
-                                      self.color_list[self.solution[4]].upper(),
-                                      self.color_list[self.solution[5]].upper(),
+                    "║{:^16}║".format(self.color_list[int(self.solution[0])].upper(),
+                                      self.color_list[int(self.solution[1])].upper(),
+                                      self.color_list[int(self.solution[2])].upper(),
+                                      self.color_list[int(self.solution[3])].upper(),
+                                      self.color_list[int(self.solution[4])].upper(),
+                                      self.color_list[int(self.solution[5])].upper(),
                                       "SOLUTION",
                                       "COLORS"))
             else:
@@ -306,13 +306,13 @@ class Game:
         result_choice = {"X": 0, "O": 0}
 
         for cpt1 in range(0, len(solution_copy)):
-            if solution_copy[cpt1] == int(color_choice[cpt1]):
+            if solution_copy[cpt1] == color_choice[cpt1]:
                 result_choice['X'] = result_choice['X'] + 1
                 solution_copy[cpt1] = " "
 
         for cpt1 in range(0, len(solution_copy)):
             for cpt2 in range(0, len(solution_copy)):
-                if solution_copy[cpt1] == int(color_choice[cpt2]):
+                if solution_copy[cpt1] == color_choice[cpt2]:
                     result_choice['O'] = result_choice['O'] + 1
                     solution_copy[cpt1] = " "
                     break
@@ -329,44 +329,58 @@ class Game:
         else:
             self.game_turn += 1
 
-    def another_game(self):
-        var = ''
+    def result_game(self):
+        os_system(self.var_os)
 
-        if self.color_result_save[-1]["X"] == 4:
+        if self.color_result_save[-1]["X"] == len(self.solution):
             print("")
-            print("╔" + "═" * 51 + "╗")
-            print("║{:^51}║".format("Felicitation !"))
-            print("║{:51}║".format(""))
-            print("║{} {} {}║".format(" You win in ", len(self.color_result_save), " tries "))
-            print("╚" + "═" * 51 + "╝")
+            print(" ╔" + "═" * 51 + "╗")
+            print(" ║{:^51}║".format("Felicitation !"))
+            print(" ║{:51}║".format(""))
+            print(" ║{:^51}║".format(" You win in " + str(len(self.color_result_save)) + " tries "))
+            print(" ║{:51}║".format(""))
 
-        if self.color_result_save[-1]["X"] != 4:
+        if self.color_result_save[-1]["X"] != len(self.solution):
             print("")
-            print("╔" + "═" * 51 + "╗")
-            print("║{:^51}║".format("You loose !"))
-            print("║{:51}║".format(""))
-            print("║{:51}║".format("You loose the game. Solution was :"))
+            print(" ╔" + "═" * 51 + "╗")
+            print(" ║{:^51}║".format("You loose !"))
+            print(" ║{:51}║".format(""))
+            print(" ║{:51}║".format("You loose the game. Solution was :"))
 
-            if self.difficulty == 1:
-                print("║{:^7}|{:^7}|{:^7}|{:^7}║".format(self.color_list[self.solution[0]].upper(),
-                                                         self.color_list[self.solution[1]].upper(),
-                                                         self.color_list[self.solution[2]].upper(),
-                                                         self.color_list[self.solution[3]].upper(),
-                                                         ))
+        if self.difficulty == 1:
+            print(" ║ {:^10} | {:^10} | {:^10} | {:^10} ║".format(self.color_list[int(self.solution[0])].upper(),
+                                                                  self.color_list[int(self.solution[1])].upper(),
+                                                                  self.color_list[int(self.solution[2])].upper(),
+                                                                  self.color_list[int(self.solution[3])].upper(),
+                                                                  ))
+        else:
+            print(" ║{:^7}|{:^7}|{:^7}|{:^7}|{:^7}|{:^7}║".format(self.color_list[int(self.solution[0])].upper(),
+                                                                  self.color_list[int(self.solution[1])].upper(),
+                                                                  self.color_list[int(self.solution[2])].upper(),
+                                                                  self.color_list[int(self.solution[3])].upper(),
+                                                                  self.color_list[int(self.solution[4])].upper(),
+                                                                  self.color_list[int(self.solution[5])].upper(),
+                                                                  ))
 
-            print("╚" + "═" * 51 + "╝")
+        print(" ╚" + "═" * 51 + "╝")
+
+    def set_another_game(self):
+        rst = ''
 
         while True:
 
-            if var == 'y':
+            if rst == 'y':
                 self.solution = []
                 self.color_choice_save = []
                 self.color_result_save = []
                 self.game_turn = 1
-                return True
+                self.game_continue = True
+                self.players = self.players[::-1]
+                break
 
-            elif var == 'n':
-                return False
+            elif rst == 'n':
+                self.game_continue = False
+                break
 
             else:
-                var = str(input(" Another game ? y / n \n")).lower().strip()
+                rst = str(input(" Another game ? y / n \n")).lower().strip()
