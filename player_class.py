@@ -25,6 +25,7 @@ class Player:
 
     def select_colors(self, color_list):
         color_choice = []
+        x = 1
 
         if len(color_list) == 8:
             cases = 4
@@ -34,7 +35,8 @@ class Player:
         while len(color_choice) < cases:
 
             while True:
-                select = input(" Choose your color : ")
+                select = input(" {} choose color {}: ".format(self.name,
+                                                              x))
 
                 if len(select) == 1:
                     if int(ord("0")) <= int(ord(select)) <= int(ord(str(len(color_list) - 1))):
@@ -43,6 +45,7 @@ class Player:
                 print(" Enter the number before color.")
 
             color_choice.append(select)
+            x += 1
 
         input("Press enter to continue...")
 
