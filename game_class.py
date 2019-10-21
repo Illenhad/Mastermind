@@ -193,7 +193,7 @@ class Game:
         print(" ╔" + "═" * 51 + "╗")
         print(" ║{:^51}║".format("WARNING"))
         print(" ║{:51}║".format(""))
-        print(" ║{:51}║".format(self.players[0].name + " you will choose the solution"))
+        print(" ║{:51}║".format(" " + self.players[0].name + ", you will choose the solution"))
         print(" ║{:51}║".format(" Press Enter when you are sure not to be seen !"))
         print(" ╚" + "═" * 51 + "╝")
 
@@ -367,12 +367,10 @@ class Game:
 
             for cpt2 in range(0, len(solution_copy)):
 
-                if solution_copy[cpt1] != " ":
-                    if solution_copy[cpt2] != " ":
-                        if solution_copy[cpt1] == color_choice[cpt2]:
-                            result_choice['O'] = result_choice['O'] + 1
-                            solution_copy[cpt1] = " "
-                            break
+                if solution_copy[cpt1] == color_choice[cpt2]:
+                    result_choice['O'] = result_choice['O'] + 1
+                    solution_copy[cpt1] = " "
+                    break
 
         self.color_result_save.append(result_choice)
 
