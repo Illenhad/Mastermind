@@ -40,6 +40,7 @@ def main():
             game_board.verify_end_game()
 
         game_board.result_game()
+        game_board.display_high_score()
         game_board.set_another_game()
 
 

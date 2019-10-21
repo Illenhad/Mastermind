@@ -1,8 +1,5 @@
 from os import name as os_name, system as os_system
-# import sqlite3
-#
-# CreateDataBase = sqlite3.connect('HighScore.db')
-# QueryCurs = CreateDataBase.cursor()
+import sqlite3
 
 
 class Game:
@@ -16,7 +13,6 @@ class Game:
         self.mod = 1
         self.color_choice_save = []
         self.color_result_save = []
-        self.game_turn = 1
         self.game_continue = True
         self.another_game = True
 
@@ -56,10 +52,14 @@ class Game:
         print(" ╔" + "═" * 51 + "╗")
         print(" ║{:^51}║".format("Game rules"))
         print(" ║{:51}║".format(""))
-        print(" ║{:51}║".format(" Player one choose a combination of color"))
+        print(" ║{:51}║".format(" Player One choose a combination of color"))
         print(" ║{:51}║".format(" Player Two must find out in less than 10 moves"))
         print(" ║{:51}║".format(""))
-        print(" ║{:51}║".format(" Two difficulty are available."))
+        print(" ║{:51}║".format(" In response of Player Two proposition :"))
+        print(" ║{:51}║".format(" X for good color and good place"))
+        print(" ║{:51}║".format(" O for good color and bad place"))
+        print(" ║{:51}║".format(""))
+        print(" ║{:51}║".format(" Two difficulty are available :"))
         print(" ║{:51}║".format(" In Normal, you can choose from 8 colors, "))
         print(" ║{:51}║".format(" and the combination contains 4 colors"))
         print(" ║{:51}║".format(" In Difficult, you can choose from 10 colors, "))
@@ -206,7 +206,6 @@ class Game:
         cpt = 0
         os_system(self.var_os)
         print("")
-        print(self.game_turn)
 
         if self.difficulty == 1:
             head = " ╔" + "═" * 39 + "╦" * 2 + "═" * 23 + "╦" * 2 + "═" * 16 + "╗"
@@ -379,13 +378,11 @@ class Game:
     """
     def verify_end_game(self):
 
-        if self.game_turn >= 10:
+        if len(self.color_result_save) >= 10:
             self.game_continue = False
         elif len(self.color_result_save) > 0:
             if self.color_result_save[-1]["X"] == len(self.solution):
                 self.game_continue = False
-            else:
-                self.game_turn += 1
 
     """
     Display result of the game
@@ -400,6 +397,8 @@ class Game:
             print(" ║{:51}║".format(""))
             print(" ║{:^51}║".format(" You won in " + str(len(self.color_result_save)) + " tries"))
             print(" ║{:51}║".format(""))
+
+            self.insert_high_score(len(self.color_result_save))
 
         if self.color_result_save[-1]["X"] != len(self.solution):
             print("")
@@ -431,6 +430,8 @@ class Game:
 
         print(" ╚" + "═" * 51 + "╝")
 
+        input("  Press enter to continue...")
+
     """
     Set game_continue to specify if we start new game
     """
@@ -443,7 +444,6 @@ class Game:
                 self.solution = []
                 self.color_choice_save = []
                 self.color_result_save = []
-                self.game_turn = 1
                 self.game_continue = True
                 self.players = self.players[::-1]
                 break
@@ -455,13 +455,43 @@ class Game:
             else:
                 rst = str(input("  Another game ? y / n : ")).lower().strip()
 
-    # def create_table(self):
-    #     QueryCurs.execute('''CREATE TABLE Highscore
-    #     (id INTEGER PRIMARY KEY, Name TEXT,Score INTEGER)''')
-    #
-    # def add_entry(self, name, score):
-    #     QueryCurs.execute('''INSERT INTO Clients (Name,Score)
-    #     VALUES (?,?,?,?,?)''', (name, score))
-    #
-    # def view_high_score(self):
-    #     QueryCurs.execute("SELECT name, ' | ', score FROM Clients ORDER BY score DESC FETCH FIRST 10 ROW ONLY")
+    def display_high_score(self):
+        x = 0
+
+        try:
+            connection = sqlite3.connect("highscore.db")
+            cursor = connection.cursor()
+            cursor.execute("Select name, score FROM Mastermind ORDER BY score ASC")
+
+            os_system(self.var_os)
+            print("")
+            print(" ╔" + "═" * 20 + "╗")
+            print(" ║{:^20}║".format("HIGHSCORE"))
+            print(" ╠" + "═" * 20 + "╣")
+
+            for row in cursor.fetchall():
+                print(" ║ {:13} | {:2} ║".format(row[0],
+                                                 row[1]))
+                if x > 9:
+                    break
+
+                x += 1
+
+            print(" ╚" + "═" * 20 + "╝")
+            connection.close()
+
+        except Exception as e:
+            print('[ERROR] ', e)
+
+    def insert_high_score(self, score):
+
+        try:
+            connection = sqlite3.connect("highscore.db")
+            cursor = connection.cursor()
+            sql = '''INSERT INTO Mastermind (name,score) VALUES (?,?)'''
+            cursor.execute(sql, (self.players[1].name, score))
+            connection.commit()
+            connection.close()
+
+        except Exception as e:
+            print('[ERROR] ', e)
