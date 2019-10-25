@@ -3,16 +3,19 @@ class Player:
         self.name = "Player"
         self.player_number = number
 
-    """
-    Set name of player
-    """
     def set_name(self):
+        """Set name of player"""
+
         res = True
         name_prop = ""
 
         while res:
             res = False
             name_prop = input("  Player {} Enter your name : ".format(self.player_number))
+
+            if len(name_prop) > 10:
+                print("  Enter a name having less than 10 characters.\n")
+                res = True
 
             if len(name_prop) > 0:
 
@@ -27,10 +30,9 @@ class Player:
 
         self.name = name_prop
 
-    """
-    Player choose color from a list
-    """
     def select_colors(self, color_list):
+        """Player choose color from a list"""
+
         color_choice = []
         x = 1
 

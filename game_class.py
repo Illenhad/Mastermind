@@ -23,6 +23,7 @@ class Game:
             self.var_os = 'cls'
 
     def game_title(self):
+        """Display game's home"""
 
         os_system(self.var_os)
         print("")
@@ -42,10 +43,13 @@ class Game:
         print(" ╚" + "═" * 51 + "╝")
 
     def set_players(self, p1, p2):
+        """Set self.players with player's name"""
+
         self.players.append(p1)
         self.players.append(p2)
 
     def game_rules(self):
+        """Display game's rules"""
 
         os_system(self.var_os)
         print("")
@@ -72,11 +76,10 @@ class Game:
 
         input("  Press Enter to continue...")
 
-    """
-    Set self.difficulty
-    Difficult : add two colors into color list
-    """
     def set_difficulty(self):
+        """Set self.difficulty
+        Difficult : add two colors into color list"""
+
         res = ""
 
         os_system(self.var_os)
@@ -109,12 +112,11 @@ class Game:
 
         print()
 
-    """
-    Set self.mod
-    Normal : Solution is hidden
-    Debug : Solution is visible 
-    """
     def set_mod(self):
+        """Set self.mod
+        Normal : Solution is hidden
+        Debug : Solution is visible"""
+
         res = ""
 
         os_system(self.var_os)
@@ -139,10 +141,9 @@ class Game:
 
         self.mod = int(mod_choice)
 
-    """
-    Display resume before lunch game
-    """
     def game_title_resume(self, p1, p2):
+        """Display resume before lunch game"""
+
         os_system(self.var_os)
 
         print("")
@@ -165,10 +166,9 @@ class Game:
         print(" ╚" + "═" * 51 + "╝")
         input("  Press Enter to continue...")
 
-    """
-    Display colors available
-    """
     def view_color(self):
+        """Display colors available"""
+
         x = 0
 
         os_system(self.var_os)
@@ -183,10 +183,8 @@ class Game:
 
         print(" ╚" + "═" * 16 + "╝")
 
-    """
-    Display warning before player choose solution
-    """
     def game_warning(self):
+        """Display warning before player choose solution"""
 
         os_system(self.var_os)
         print("")
@@ -199,10 +197,9 @@ class Game:
 
         input("  Press Enter to continue...")
 
-    """
-    Display board game
-    """
     def game_board_view(self):
+        """Display board game"""
+
         cpt = 0
         os_system(self.var_os)
         print("")
@@ -349,10 +346,9 @@ class Game:
 
         print(foot)
 
-    """
-    Verify color choice compared to solution
-    """
     def verify_choice(self):
+        """Verify color choice compared to solution"""
+
         color_choice = self.color_choice_save[-1]
         solution_copy = self.solution[:]
         result_choice = {"X": 0, "O": 0}
@@ -373,10 +369,8 @@ class Game:
 
         self.color_result_save.append(result_choice)
 
-    """
-    Verify if game if player won, loose or if game continue
-    """
     def verify_end_game(self):
+        """Verify if game if player won, loose or if game continue"""
 
         if len(self.color_result_save) >= 10:
             self.game_continue = False
@@ -384,10 +378,9 @@ class Game:
             if self.color_result_save[-1]["X"] == len(self.solution):
                 self.game_continue = False
 
-    """
-    Display result of the game
-    """
     def result_game(self):
+        """Display result of the game"""
+
         os_system(self.var_os)
 
         if self.color_result_save[-1]["X"] == len(self.solution):
@@ -432,10 +425,9 @@ class Game:
 
         input("  Press enter to continue...")
 
-    """
-    Set game_continue to specify if we start new game
-    """
     def set_another_game(self):
+        """Set game_continue to specify if we start new game"""
+
         rst = ''
 
         while True:
@@ -456,6 +448,8 @@ class Game:
                 rst = str(input("  Another game ? y / n : ")).lower().strip()
 
     def display_high_score(self):
+        """Display high score"""
+    
         x = 0
 
         try:
@@ -484,6 +478,7 @@ class Game:
             print('[ERROR] ', e)
 
     def insert_high_score(self, score):
+        """Insert score into database"""
 
         try:
             connection = sqlite3.connect("highscore.db")
